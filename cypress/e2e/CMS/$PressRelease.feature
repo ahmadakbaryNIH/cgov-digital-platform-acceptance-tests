@@ -53,7 +53,6 @@ Feature: As a cms user I want to be able to create Press Release content type to
         And the list item description reads "Press Release List Description"
         And the promotional image for press release is matching the earlier selected image
 
-
     Scenario: Edit and republish press release content type
         Given user is navigating to "/user/login"
         When user enters credentials
@@ -95,7 +94,6 @@ Feature: As a cms user I want to be able to create Press Release content type to
         When user saves the content page
         And user clicks on the tool bar status green button "Editing"
         And user selects "Quick Publish" from workflow actions
-
 
     Scenario: Verify edited content
         Given user is navigating to the front end site with path site section plus "press-release-edited"
@@ -155,6 +153,81 @@ Feature: As a cms user I want to be able to create Press Release content type to
         And user clicks on the tool bar status green button "Editing"
         And user selects "Quick Publish" from workflow actions
 
+    # translation of press release
+    Scenario: Add a translation
+        Given user is navigating to "/user/login"
+        When user enters credentials
+        And user clicks "Log in" button
+        Then user is logged in and the user name "admin" is displayed in the toolbar
+        And the tool bar appears at the top
+        When user clicks on "Content" tab
+        Then user selects "Translate" option from Operations dropdown for content with title "Automated Test Press Release Edited"
+        Then page title is "Translations of Automated Test Press Release Edited"
+        When user clicks on "Add" button to add translation
+        Then page title is "Crear traducción Español de Automated Test Press Release Edited"
+        And the following fields are displayed
+            | fieldLabel               | field_name                     |
+            | Pretty URL               | field_pretty_url               |
+            | Título de página         | title                          |
+            | Subtítulo                | field_subtitle                 |
+            | Browser Title            | field_browser_title            |
+            | Press Release Type       | field_press_release_type       |
+            | Card Title               | field_card_title               |
+            | Meta Description         | field_page_description         |
+            | Feature Card Description | field_feature_card_description |
+        And body was translated as "Cuerpo"
+        And Remove button for image was translated as "Eliminar"
+        And Related Resources section was translated as "Recursos relacionados"
+        And dropdown to add link under related resources was translated to start with "Añadir"
+        And button to add citation was translated as "Añadir Citation"
+        And current state was translated as "Estado actual" "Borrador"
+        And Change to dropdown has the following options
+            | option    |
+            | Borrador  |
+            | Review    |
+            | Publicado |
+        And Save button was translated as "Guardar (esta traducción)"
+        And preview button was translated as "Vista previa"
+        Then user saves the content page
+        And user clicks on the tool bar status green button "Borrador"
+        And user selects "Quick Publish" from workflow actions
+
+    Scenario: Verify translated content
+        Given user is navigating to the front end site with spanish path "/espanol" site section plus "press-release-edited"
+        Then page title is "Automated Test Press Release Edited"
+        And dates were translated as follows
+            | date          |
+            | Publicación   |
+            | Actualización |
+            | Revisión      |
+
+    Scenario: Edit and republish Spanish press release content type
+        Given user is navigating to "/user/login"
+        When user enters credentials
+        And user clicks "Log in" button
+        Then user is logged in and the user name "admin" is displayed in the toolbar
+        And the tool bar appears at the top
+        When user clicks on "Content" tab
+        And user is navigating to the front end site with spanish path "/espanol" site section plus "press-release-edited"
+        And user clicks on the tool bar status green button "Publicado"
+        And user clicks "View in edit form" button from other actions
+        And user clears out "Título de página" field
+        And user clears out "Meta Description" field
+        And user fills out the following fields
+            | fieldLabel       | value                                                        | field_name             |
+            | Título de página | Automated Test Press Release Edited Spanish                  | title                  |
+            | Meta Description | Automated Test Press Release Meta Description Edited Spanish | field_page_description |
+        When user saves the content page
+        And user clicks on the tool bar status green button "Editing"
+        And user selects "Quick Publish" from workflow actions
+
+    Scenario: Verify Spanish edited content
+        Given user is navigating to the front end site with spanish path "/espanol" site section plus "press-release-edited"
+        And browser waits
+        Then page title is "Automated Test Press Release Edited Spanish"
+        And the page contains meta tags with the following names
+            | name        | content                                                      |
+            | description | Automated Test Press Release Meta Description Edited Spanish |
 
     Scenario: Clean up
         Given user is navigating to "/user/login"
@@ -167,5 +240,5 @@ Feature: As a cms user I want to be able to create Press Release content type to
         And user clicks on "Apply to selected items" content action button
         Then page title is "Are you sure you want to delete this content item?"
         When user clicks on "Delete" button
-        Then the confirmation text "Deleted 1 content item." appears on a screen
+        Then the confirmation text "Deleted 2 content items." appears on a screen
         And the content item with url "press-release-edited" does not exist in the list of content
