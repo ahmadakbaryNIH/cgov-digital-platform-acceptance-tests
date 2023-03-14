@@ -210,16 +210,33 @@ And('cthp causes card has a link {string} with href {string}', (linkText, href) 
     const replacedTestSiteSection = href.replace("{TEST_SITE_SECTION}", siteSection);
     cy.get("div[class*='cthp-causes'] a").as('card').should('have.text', linkText)
     cy.get("@card").should('have.attr', 'href', replacedTestSiteSection)
+<<<<<<< Updated upstream
 })
 
 And('cthp survival card has a link {string} with href {string}', (linkText, href) => {
 cy.get(`div[class*='cthp-survival'] a:contains("${linkText}")`).should('be.visible').and('have.attr', 'href', href)
+=======
+    //cy.get("div[class='equalheight bgWhite cthp-causes'] a").as('card').should('have.text', linkText)
+    //cy.get("div[class*='cthp-causes'] a").as('card').should('have.attr', 'href', replacedTestSiteSection)
+    
+})
+
+And('cthp survival card has a link {string} with href {string}', (title, href) => {
+   cy.get(`div[class='equalheight bgWhite cthp-survival'] a:contains("${title}")`).should('be.visible').and('have.attr', 'href', href)
+   
+>>>>>>> Stashed changes
 })
 
 And('cthp screening card has a link {string} with href {string}', (linkText, href) => {
     const replacedTestSiteSection = href.replace("{TEST_SITE_SECTION}", siteSection);
     cy.get("div[class*='cthp-screening'] a").as('card').should('have.text', linkText)
     cy.get("@card").should('have.attr', 'href', replacedTestSiteSection)
+<<<<<<< Updated upstream
+=======
+    
+    //cy.get("div[class='equalheight bgWhite cthp-screening'] a").as('card').should('have.text', linkText)
+    //cy.get("div[class*='cthp-screening'] a").as('card').should('have.attr', 'href', replacedTestSiteSection)
+>>>>>>> Stashed changes
 })
 
 And('cthp general card has description that is not empty', () => {
